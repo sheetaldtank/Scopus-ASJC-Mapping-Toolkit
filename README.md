@@ -1,118 +1,120 @@
-🧰 Features
-🔍 Map Scopus Source Record IDs using ISSN/EISSN.
-📥 Import ASJC codes associated with Scopus-indexed journals.
-📚 Retrieve ASJC subject descriptions, main subjects, and supergroup details.
-🔗 Map non-Scopus indexed journals using KBART subject keywords.
-🧠 Intelligent keyword matching to identify the best ASJC classification.
-🧹 Handle and resolve “No Match” scenarios effectively.
+# 📚 Scopus ASJC Mapping Toolkit
 
-📂 Project Structure
+## 📖 Overview
+The **Scopus ASJC Mapping Toolkit** is a collection of Python scripts designed to enrich journal metadata by mapping **Scopus Source Record IDs**, **ASJC (All Science Journal Classification) codes**, and **subject hierarchies**. The toolkit also supports the classification of **non-Scopus indexed e-journals** using **KBART subject keywords** with intelligent matching techniques.
+
+This project is particularly useful for **academic and research libraries**, bibliometric studies, and collection development activities.
+
+---
+
+## 🧰 Key Features
+
+- 🔍 Map **Scopus Source Record IDs** using ISSN/EISSN.
+- 📥 Import **ASJC codes** for Scopus-indexed journals.
+- 📚 Retrieve **ASJC subject descriptions**, **main subjects**, and **supergroup details**.
+- 🔗 Classify **non-Scopus indexed journals** using **KBART subject keywords**.
+- 🧠 Intelligent keyword matching to determine the **best ASJC classification**.
+- 🧹 Resolve **“No Match”** scenarios through enhanced matching techniques.
+- 🗄️ Store enriched metadata in database tables or structured files.
+
+---
+
+## 📂 Project Structure
 scopus-asjc-mapping-toolkit/
 │
-├── Mapscopus.py
-├── Importof.py
-├── Mapasjc.py
-├── Withoutasjc.py
-├── Nomatchissue.py
-├── data/                # Input files (Scopus source list, KBART files, etc.)
-├── output/              # Generated outputs
-├── requirements.txt
-└── README.md
-📝 Script Descriptions
-1. Mapscopus.py
+├── Mapscopus.py # Maps ISSN/EISSN to Scopus Source Record IDs
+├── Importof.py # Imports ASJC codes using Source Record IDs
+├── Mapasjc.py # Maps ASJC codes to subject descriptions and hierarchy
+├── Withoutasjc.py # Maps KBART subject keywords for non-Scopus journals
+├── Nomatchissue.py # Resolves "No Match" cases using improved matching
+├── data/ # Input datasets (Scopus, ASJC, KBART)
+├── output/ # Generated output files
+├── requirements.txt # Python dependencies
+└── README.md # Project documentation
 
-Purpose:
-Maps the Scopus Source Record ID (sourcerecordID) using the ISSN or EISSN from the Scopus source list.
 
-Key Functions:
+---
 
-Reads journal ISSN/EISSN from input data.
-Matches them with the Scopus source list.
-Outputs the corresponding sourcerecordID.
+## 📝 Script Descriptions
 
-Input:
+### 1. `Mapscopus.py`
+**Purpose:**  
+Maps the **Scopus Source Record ID (`sourcerecordID`)** using **ISSN** or **EISSN**.
 
-Scopus Source List (CSV/XLSX)
-ISSN/EISSN dataset
+**Inputs:**
+- Scopus Source List (CSV/XLSX)
+- Journal dataset containing ISSN/EISSN
 
-Output:
+**Outputs:**
+- Dataset with mapped `sourcerecordID`.
 
-Dataset with mapped sourcerecordID.
-2. Importof.py
+---
 
-Purpose:
-Imports ASJC codes from the Scopus source list using the mapped sourcerecordID and stores them in database tables.
+### 2. `Importof.py`
+**Purpose:**  
+Imports **ASJC codes** from the Scopus Source List using the mapped `sourcerecordID` and stores them in database tables.
 
-Key Functions:
+**Inputs:**
+- Output from `Mapscopus.py`
+- Scopus Source List
 
-Extracts ASJC codes associated with each source.
-Inserts or updates records in the database.
+**Outputs:**
+- Database or file containing ASJC codes for each journal.
 
-Input:
+---
 
-Output from Mapscopus.py
-Scopus Source List
+### 3. `Mapasjc.py`
+**Purpose:**  
+Maps **ASJC codes** to their hierarchical subject information.
 
-Output:
+**Enriched Fields:**
+- Subject Description
+- Main Subject
+- Supergroup
 
-Database table populated with ASJC codes.
-3. Mapasjc.py
+**Inputs:**
+- ASJC codes
+- ASJC reference dataset
 
-Purpose:
-Retrieves detailed ASJC metadata, including:
+**Outputs:**
+- Enriched dataset with hierarchical subject classifications.
 
-Subject Description
-Main Subject
-Supergroup
+---
 
-Key Functions:
+### 4. `Withoutasjc.py`
+**Purpose:**  
+Handles **non-Scopus indexed e-journals** by mapping **KBART subject keywords** to the most relevant **ASJC codes**.
 
-Maps ASJC codes to their hierarchical subject structure.
-Enriches journal records with standardized subject information.
+**Inputs:**
+- KBART files
+- ASJC reference dataset
 
-Input:
+**Outputs:**
+- ASJC codes and subject details for non-indexed journals.
 
-ASJC Codes
-ASJC reference dataset
+---
 
-Output:
+### 5. `Nomatchissue.py`
+**Purpose:**  
+Improves classification when ASJC subject descriptions initially return a **“No Match”**.
 
-Dataset or database table with enriched ASJC metadata.
-4. Withoutasjc.py
+**Functionality:**
+- Removes "No Match" labels.
+- Applies enhanced or fuzzy keyword matching.
+- Assigns the best possible ASJC classification.
 
-Purpose:
-Handles non-Scopus indexed e-journals by mapping KBART subject keywords to the closest ASJC codes.
+**Inputs:**
+- Records with "No Match"
+- ASJC reference dataset
 
-Key Functions:
+**Outputs:**
+- Updated dataset with refined ASJC mappings.
 
-Extracts subject keywords from KBART files.
-Performs keyword-based matching with ASJC descriptions.
-Assigns the most relevant ASJC code and associated metadata.
+---
 
-Input:
+## ⚙️ Installation
 
-KBART files of e-journals
-ASJC reference dataset
-
-Output:
-
-Mapped ASJC codes and subject details for non-indexed journals.
-5. Nomatchissue.py
-
-Purpose:
-Resolves cases where ASJC subject descriptions return a “No Match”.
-
-Key Functions:
-
-Removes “No Match” results.
-Applies improved or fuzzy keyword matching.
-Suggests the best possible ASJC classification.
-
-Input:
-
-Records with “No Match” results
-ASJC reference dataset
-
-Output:
-
-Updated dataset with the best matching ASJC classifications.
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/scopus-asjc-mapping-toolkit.git
+cd scopus-asjc-mapping-toolkit
