@@ -110,7 +110,9 @@ Improves classification when ASJC subject descriptions initially return a **“N
 **Outputs:**
 - Updated dataset with refined ASJC mappings.
 
----
+### 6. 'nonasjcmapping.py'
+**This Python script maps journal subject names from `List_of_EJournals.xlsx` to standardized Scopus ASJC classifications using a lookup table. It handles multiple semicolon-separated subjects, performs case-insensitive matching, removes duplicates, and enriches the dataset with **ASJC Codes**, **Subject Keywords**, **Main Subject**, and **Supergroup** fields.
+---**
 
 ## ⚙️ Installation
 
@@ -118,3 +120,6 @@ Improves classification when ASJC subject descriptions initially return a **“N
 ```bash
 git clone https://github.com/your-username/scopus-asjc-mapping-toolkit.git
 cd scopus-asjc-mapping-toolkit
+
+### ASJC Subject Mapping Script
+
